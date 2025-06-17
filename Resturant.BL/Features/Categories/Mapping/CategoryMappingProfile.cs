@@ -41,8 +41,9 @@ namespace Resturant.BL.Features.Categories.Mapping
                 .ForCtorParam("menuItemsIds", opt => opt.MapFrom(src => src.MenuItems.Select(mi => mi.Id).ToList()));
             // GetCategoryByName Mappings
             CreateMap<Category, GetCategoryByNameResponse>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.menuItemsIds, opt => opt.MapFrom(src => src.MenuItems.Select(mi => mi.Id).ToList()));
+                .ForCtorParam("Name", opt => opt.MapFrom(src => src.Name))
+                .ForCtorParam("menuItemsIds", opt => opt.MapFrom(src => src.MenuItems.Select(mi => mi.Id).ToList()));
+
             // GetAllCategories Mappings
             CreateMap<Category, GetAllCategoriesResponse>()
               .ForCtorParam("Id", opt => opt.MapFrom(src => src.Id))

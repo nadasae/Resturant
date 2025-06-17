@@ -28,9 +28,9 @@ namespace Resturant.DA.Implementations.Base
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<List<TEntity>> GetAllAsync()
+        public  IQueryable<TEntity> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return  _dbSet;
         }
 
         public async Task AddAsync(TEntity entity)

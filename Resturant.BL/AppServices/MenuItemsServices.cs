@@ -80,7 +80,7 @@ namespace Resturant.BL.AppServices
         }
         public async Task<Result<List<GetMenuItemResponse>>> GetAllAsync()
         {
-            var menuItemsList = await menuItems.GetAllAsync();
+            var menuItemsList =  menuItems.GetAllAsync();
             if (menuItemsList == null || !menuItemsList.Any())
             {
                 return Result<List<GetMenuItemResponse>>.Fail("No menu items found");
@@ -101,7 +101,7 @@ namespace Resturant.BL.AppServices
 
         public async Task<Result<GetMenuItemResponse>> GetByNameAsync(GetMenuItemByNameRequest request)
         {
-            var mens = await menuItems.GetAllAsync();
+            var mens =  menuItems.GetAllAsync();
             var menuItem = mens.FirstOrDefault(m => m.Name == request.Name);
             if (menuItem == null)
             {
@@ -149,7 +149,7 @@ namespace Resturant.BL.AppServices
 
         public async Task<Result<List<GetMenuItemResponse>>> UpdateAvailabilityBasedOnOrderCountAsync()
         {
-            var items = await menuItems.GetAllAsync();
+            var items =  menuItems.GetAllAsync();
             foreach (var item in items)
             {
                 var dailyCount = await menuItems.GetDailyOrderCountAsync(item.Id);
@@ -179,7 +179,7 @@ namespace Resturant.BL.AppServices
            */
             if (now.TimeOfDay >= TimeSpan.FromHours(0) && lastResetDate.Date != now.Date)
             {
-                var items = await menuItems.GetAllAsync();
+                var items =  menuItems.GetAllAsync();
 
                 foreach (var item in items)
                 {

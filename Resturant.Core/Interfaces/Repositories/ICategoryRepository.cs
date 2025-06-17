@@ -10,5 +10,6 @@ namespace Resturant.Core.Interfaces.Repositories
     public interface ICategoryRepository : IGenericRepository<Category, int>
     {
         Task<List<Category>> GetWithActiveMenuItemsAsync();
+      
     }
 }

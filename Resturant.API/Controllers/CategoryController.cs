@@ -16,7 +16,7 @@ namespace Resturant.API.Controllers
         }
 
         // GET: api/Category
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _categoryService.GetAllCategoriesAsync();
@@ -26,16 +26,24 @@ namespace Resturant.API.Controllers
         }
 
         // GET: api/Category/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("GetById")]
+        public async Task<IActionResult> GetById([FromQuery]GetCategoryByIdRequest request)
         {
-            var request = new GetCategoryByIdRequest(id);
+            //var request = new GetCategoryByIdRequest(id);
             var result = await _categoryService.GetCategoryByIdAsync(request);
             if (!result.IsSuccess)
                 return NotFound(result.Error);
             return Ok(result.Data);
         }
-
+        //GET: api/Category/name
+        [HttpGet("GetByName")]
+        public async Task<IActionResult> GetByName([FromQuery]GetCategoryByNameRequest request)
+        {
+            var result = await _categoryService.GetCategoryByNameAsync(request);
+            if (result.IsSuccess)
+                return Ok(result.Data);
+            return NotFound(result.Error);
+        }
         // POST: api/Category
         [HttpPost]
         public async Task<IActionResult> Create(AddCategoryRequest model)

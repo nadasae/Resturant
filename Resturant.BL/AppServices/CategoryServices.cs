@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Resturant.BL.Contracts;
 using Resturant.BL.Features.Categories.Requests;
 using Resturant.BL.Features.Categories.Responses;
@@ -51,7 +52,7 @@ namespace Resturant.BL.AppServices
 
         public async Task<Result<List<GetAllCategoriesResponse>>> GetAllCategoriesAsync()
         {
-            var cats = await categories.GetAllAsync();
+            var cats =  categories.GetAllAsync();
             var catMap = mapper.Map<List<GetAllCategoriesResponse>>(cats);
             return Result<List<GetAllCategoriesResponse>>.Success(catMap);
         }
@@ -65,7 +66,9 @@ namespace Resturant.BL.AppServices
 
         public async Task<Result<GetCategoryByIdResponse>> GetCategoryByIdAsync(GetCategoryByIdRequest request)
         {
-            var cat = await categories.GetByIdAsync(request.Id);
+            var cat = await categories.GetAllAsync()
+             .Include(c => c.MenuItems)
+             .FirstOrDefaultAsync(c => c.Id == request.Id);
             if (cat == null)
                 return Result<GetCategoryByIdResponse>.Fail("Category not found");
             var catMap = mapper.Map<GetCategoryByIdResponse>(cat);
@@ -74,8 +77,9 @@ namespace Resturant.BL.AppServices
 
         public async Task<Result<GetCategoryByNameResponse>> GetCategoryByNameAsync(GetCategoryByNameRequest request)
         {
-           var cats = await categories.GetAllAsync();
-            var category = cats.FirstOrDefault(c => c.Name==request.Name);
+            var category = await categories.GetAllAsync()
+               .Include(c => c.MenuItems)
+               .FirstOrDefaultAsync(c => c.Name == request.Name);
             if (category == null)
             {
                 return Result<GetCategoryByNameResponse>.Fail("Category not found");

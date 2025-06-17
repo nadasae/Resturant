@@ -1,0 +1,130 @@
+﻿@using Resturant.BL.Features.MenuItems.Responses
+@using Resturant.Core.Entities.Models
+@model IEnumerable<Resturant.BL.Features.MenuItems.Responses.GetMenuItemResponse>
+@{
+    ViewData["Title"] = "Restaurant Menu";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">Our Menu</h2>
+
+    <!-- Add Button -->
+    @if (Model==null)
+    {
+        <div class="col-12 text-center mb-4">
+            <p class="text-muted">No menu items available at the moment.</p>
+            <a asp-action="Create" class="btn btn-primary btn-lg">Add New Menu Item</a>
+        </div>
+    }
+    else
+    {
+        <div class="d-flex justify-content-end mb-3">
+            <a asp-action="Create" class="btn btn-primary">Add New Menu Item</a>
+        </div>
+      
+    var items = ViewBag.Available as List<GetMenuItemResponse>;
+    var availableItems = items?.Where(av => av.IsAvailable).ToList();
+        
+    <div class="row">
+        @for (int i = 0; i < Model.Count(); i += 2)
+        {
+            if(availableItems.Contains(Model.ElementAt(i)))
+            {
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-borderless table-hover">
+                        <tbody>
+                            @if (i < Model.Count())
+                            {
+                                var item1 = Model.ElementAt(i);
+                                <tr onclick="showDetails(@item1.Id)" style="cursor: pointer;">
+                                    <td><img src="~/Images/flat-lay-delicious-indonesian-bakso.jpg" alt="Menu Item" style="width: 50px; height: 50px; border-radius: 50%;" /></td>
+                                    <td>@item1.Name</td>
+                                    <td>$@item1.Price.ToString("F2")</td>
+                                </tr>
+                            }
+                            @if (i + 1 < Model.Count())
+                            {
+                                var item2 = Model.ElementAt(i + 1);
+                                <tr onclick="showDetails(@item2.Id)" style="cursor: pointer;">
+                                    <td><img src="~/Images/view-delicious-food-reunion-dinner-anime-style.jpg" alt="Menu Item" style="width: 50px; height: 50px; border-radius: 50%;" /></td>
+                                    <td>@item2.Name</td>
+                                    <td>$@item2.Price.ToString("F2")</td>
+                                </tr>
+                                }
+                            }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        }
+    </div>
+
+    <!-- Modal for Details -->
+    <div id="detailsModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Menu Item Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="detailsContent">
+                        <!-- Dynamic content will be injected here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="prevButton" class="btn btn-secondary" onclick="navigateDetails(-1)">Previous</button>
+                    <button id="nextButton" class="btn btn-primary" onclick="navigateDetails(1)">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        let currentIndex = 0;
+        const menuItems = @Html.Raw(Json.Serialize(Model));
+
+        function showDetails(id) {
+            currentIndex = menuItems.findIndex(item => item.id === id);
+            updateDetailsModal();
+            $('#detailsModal').modal('show');
+        }
+
+        function navigateDetails(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = 0;
+            if (currentIndex >= menuItems.length) currentIndex = menuItems.length - 1;
+            updateDetailsModal();
+        }
+
+        function updateDetailsModal() {
+            const item = menuItems[currentIndex];
+            document.getElementById('detailsContent').innerHTML = `
+                <div class="text-center">
+                    <img src="/images/menu-placeholder.png" alt="${item.name}" style="width: 150px; height: 150px; border-radius: 10px;" />
+                    <h4 class="mt-3">${item.name}</h4>
+                    <p>${generateDescription()}</p>
+                    <p class="text-primary fw-bold">$${item.price.toFixed(2)}</p>
+                </div>
+            `;
+            document.getElementById('prevButton').disabled = currentIndex === 0;
+            document.getElementById('nextButton').disabled = currentIndex === menuItems.length - 1;
+        }
+
+        function generateDescription() {
+            const descriptions = [
+                "A delicious dish that satisfies your cravings.",
+                "Made with fresh ingredients and love.",
+                "A must-try for food enthusiasts!",
+                "Perfectly balanced flavors in every bite."
+            ];
+            return descriptions[Math.floor(Math.random() * descriptions.length)];
+        }
+    </script>
+}

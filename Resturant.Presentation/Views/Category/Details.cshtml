@@ -1,0 +1,39 @@
+﻿@model Resturant.BL.Features.Categories.Responses.GetCategoryByIdResponse
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<h2>Category - @Model.Name</h2>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <p><strong>Name:</strong> @Model.Name</p>
+        @* <p><strong>Description:</strong> @Model.Description</p> *@
+
+        @* <!-- Display Menu Items --> *@
+        @* @if (Model.MenuItems != null && Model.MenuItems.Any()) *@
+        @* { *@
+        @*     <p><strong>Menu Items:</strong></p> *@
+        @*     <div class="row"> *@
+        @*         @for (int i = 0; i < Model.MenuItems.Count; i += 2) *@
+        @*         { *@
+        @*             <div class="col-md-6"> *@
+        @*                 <div class="d-flex flex-column"> *@
+        @*                     <!-- First Item --> *@
+        @*                     <span>@(i < Model.menuItemsIds.Count ? Model.menuItemsIds[i].Name : "")</span> *@
+        @*                     <!-- Second Item --> *@
+        @*                     <span>@(i + 1 < Model.menuItemsIds.Count ? Model.menuItemsIds[i + 1].Name : "")</span> *@
+        @*                 </div> *@
+        @*             </div> *@
+        @*         } *@
+        @*     </div> *@
+        @* } *@
+        @* else *@
+        @* { *@
+            <p><strong>No menu items registered for this category.</strong></p>
+        @* } *@
+    </div>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary me-2">Edit</a>
+<a asp-action="Index" class="btn btn-outline-primary">Back to List</a>

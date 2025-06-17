@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Categories\Validators\" />
+    <Folder Include="Features\MenuItems\Validators\" />
+    <Folder Include="Features\Order\Validators\" />
+    <Folder Include="Features\Staff\Validators\" />
+    <Folder Include="Features\Tables\Validators\" />
+    <Folder Include="Middlewares\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Resturant.Core\Resturant.Core.csproj" />
+    <ProjectReference Include="..\Resturant.DA\Resturant.DA.csproj" />
+  </ItemGroup>
+
+</Project>

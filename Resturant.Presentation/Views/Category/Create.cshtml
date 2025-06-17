@@ -1,0 +1,15 @@
+﻿@model Resturant.BL.Features.Categories.Requests.AddCategoryRequest
+@{
+    ViewData["Title"] = "Add Category";
+}
+
+<h2>Add New Category</h2>
+
+<form asp-action="Create">
+    <div class="form-group mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

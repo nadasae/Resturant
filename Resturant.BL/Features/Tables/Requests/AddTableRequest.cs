@@ -1,0 +1,11 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Resturant.BL.Features.Tables.Requests
+{
+   public record AddTableRequest(int Number, int Capacity);
+
+}

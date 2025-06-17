@@ -1,0 +1,26 @@
+﻿@model Resturant.BL.Features.Tables.Requests.UpdateTableRequest
+@{
+    ViewData["Title"] = "Edit Table";
+}
+
+<h2>Edit Table</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group mb-3">
+        <label asp-for="Number" class="form-label"></label>
+        <input asp-for="Number" class="form-control" />
+        <span asp-validation-for="Number" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Capacity" class="form-label"></label>
+        <input asp-for="Capacity" class="form-control" />
+        <span asp-validation-for="Capacity" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="OrdersIds" class="form-label"></label>
+        <input asp-for="OrdersIds" class="form-control" placeholder="Comma-separated Order IDs" />
+        <span asp-validation-for="OrdersIds" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

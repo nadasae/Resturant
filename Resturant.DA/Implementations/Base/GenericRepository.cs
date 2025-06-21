@@ -2,11 +2,7 @@
 using Resturant.Core.Entities.Base;
 using Resturant.Core.Interfaces.Repositories;
 using Resturant.DA.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Resturant.DA.Implementations.Base
 {

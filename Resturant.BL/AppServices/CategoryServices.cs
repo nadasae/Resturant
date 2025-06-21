@@ -91,6 +91,9 @@ namespace Resturant.BL.AppServices
         public async Task<Result<UpdateCategoryResponse>> UpdateCategoryAsync(UpdateCategoryRequest request)
         {
             var cat = await categories.GetByIdAsync(request.Id);
+
+
+
             if (cat == null)
             {
                 return Result<UpdateCategoryResponse>.Fail("Category not found");

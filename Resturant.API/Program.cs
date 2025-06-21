@@ -6,6 +6,7 @@ using Resturant.BL.AppServices;
 using Resturant.BL.Contracts;
 using Resturant.BL.Features.Categories.Mapping;
 using Resturant.BL.Features.MenuItems.Mapping;
+using Resturant.BL.Features.Orders.Mapping;
 using Resturant.BL.Features.Tables.Mapping;
 using Resturant.Core.Interfaces.Repositories;
 using Resturant.DA.Context;
@@ -39,11 +40,13 @@ namespace Resturant.API
             builder.Services.AddScoped<ITableService, TableService>();
             builder.Services.AddScoped<ICategoryServices, CategoryServices>();
             builder.Services.AddScoped<IMenuItemServices, MenuItemsServices>();
+            builder.Services.AddScoped<IOrderServices, OrderServices>();    
 
             // AutoMapper
             builder.Services.AddAutoMapper(typeof(TableMappingProfile).Assembly);
             builder.Services.AddAutoMapper(typeof(CategoryMappingProfile).Assembly);
             builder.Services.AddAutoMapper(typeof(MenuItemMappingProfile).Assembly);
+            builder.Services.AddAutoMapper(typeof(OrderMappingProfile).Assembly);
 
             // MVC Controllers
             builder.Services.AddControllers();

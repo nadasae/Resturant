@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.BL.Features.Order.Requests
+namespace Resturant.BL.Features.OrderItems.Request
 {
-    public record CancelOrderRequest(int Id);
-   
+    public record AddOrderItemRequest(int MenuItemId,int Quantity );
+
 }

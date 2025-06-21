@@ -15,7 +15,7 @@ namespace Resturant.Core.Entities.Models
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
         public DateTime OrderedAt { get; set; } = DateTime.UtcNow;
         public string? DeliveryAddress { get; set; }
-        public decimal Total { get; private set; }
+        public decimal Total { get;  set; }
 
 
         public ICollection<OrderItem> OrderItems { get; set; }
@@ -23,7 +23,7 @@ namespace Resturant.Core.Entities.Models
         public int? TableId { get; set; }
         public Table Table { get; set; }
 
-        public int? StaffId { get; set; }
+        public int StaffId { get; set; }
         public Staff AssignedStaff { get; set; }
     }
 }
